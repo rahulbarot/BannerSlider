@@ -9,7 +9,7 @@ class Bannerslider extends \Magento\Backend\Block\Widget\Grid\Container
 		$this->_controller = 'adminhtml_bannerslider';
 		$this->_blockGroup = 'Awesome_BannerSlider';
 		$this->_headerText = __('Banners');
-		$this->_addButtonLabel = __('Add New Banner');
+		$this->_addButtonLabel = __('Add New');
 		parent::_construct();
 	}
 }
