@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    	<add id="Awesome_BannerSlider::aws_bannerslider" title="Banner Slider" translate="title" module="Awesome_BannerSlider" sortOrder="30" parent="Magento_Backend::content" resource="Magento_Backend::content"/>
+    	<add id="Awesome_BannerSlider::manage_bannerslider" title="Manage Banners" translate="title" module="Awesome_BannerSlider" sortOrder="30" action="bannerslider/manage" parent="Awesome_BannerSlider::aws_bannerslider" resource="Magento_Backend::content"/>
+    	<add id="Awesome_BannerSlider::configurations_bannerslider" title="Configuration" translate="title" module="Awesome_BannerSlider" sortOrder="30" action="adminhtml/system_design" parent="Awesome_BannerSlider::aws_bannerslider" resource="Magento_Backend::content"/>
+    </menu>
+</config>
