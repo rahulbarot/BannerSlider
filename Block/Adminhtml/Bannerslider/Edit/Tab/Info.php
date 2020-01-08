@@ -49,11 +49,12 @@ class Info extends Generic implements TabInterface
     {
        /** @var $model \Tutorial\SimpleNews\Model\News */
         $model = $this->_coreRegistry->registry('bannerslider');
-
+        // echo "<pre>";
+        // print_r($model->getData());exit;
         /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
-        $form->setHtmlIdPrefix('news_');
-        $form->setFieldNameSuffix('news');
+        $form->setHtmlIdPrefix('banner_');
+        $form->setFieldNameSuffix('banner');
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
@@ -62,9 +63,9 @@ class Info extends Generic implements TabInterface
 
         if ($model->getId()) {
             $fieldset->addField(
-                'id',
+                'banner_id',
                 'hidden',
-                ['name' => 'id']
+                ['name' => 'banner_id']
             );
         }
         $fieldset->addField(
@@ -73,6 +74,16 @@ class Info extends Generic implements TabInterface
             [
                 'name'        => 'title',
                 'label'    => __('Title'),
+                'required'     => true
+            ]
+        );
+
+        $fieldset->addField(
+            'sub_title',
+            'text',
+            [
+                'name'        => 'sub_title',
+                'label'    => __('Sub Title'),
                 'required'     => true
             ]
         );
@@ -86,6 +97,16 @@ class Info extends Generic implements TabInterface
                 'label'    => __('Description'),
                 'required'     => true,
                 'config'    => $wysiwygConfig
+            ]
+        );
+
+        $fieldset->addField(
+            'url',
+            'text',
+            [
+                'name'        => 'url',
+                'label'    => __('Url'),
+                'required'     => true
             ]
         );
 

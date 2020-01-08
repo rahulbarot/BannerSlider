@@ -24,7 +24,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     protected function _construct()
     {
         parent::_construct();
-        $this->setId('postGrid');
+        $this->setId('bannerGrid');
         $this->setDefaultSort('banner_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
@@ -38,7 +38,6 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     protected function _prepareCollection()
     {
         $collection = $this->_bannerSlider->create()->getCollection();
-        // echo "<pre>";print_r($bannerCollection->getData());exit;
         $this->setCollection($collection);
         parent::_prepareCollection();
         return $this;
