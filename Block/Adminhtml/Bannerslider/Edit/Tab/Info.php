@@ -8,6 +8,7 @@ use Magento\Backend\Block\Template\Context;
 use Magento\Framework\Registry;
 use Magento\Framework\Data\FormFactory;
 use Magento\Cms\Model\Wysiwyg\Config;
+use Magento\Store\Model\System\Store;
 
 class Info extends Generic implements TabInterface
 {
@@ -15,11 +16,8 @@ class Info extends Generic implements TabInterface
      * @var \Magento\Cms\Model\Wysiwyg\Config
      */
     protected $_wysiwygConfig;
-
-    /**
-     * @var \Tutorial\SimpleNews\Model\Config\Status
-     */
-    protected $_newsStatus;
+    
+    protected $_systemStore;
 
    /**
      * @param Context $context
@@ -34,8 +32,10 @@ class Info extends Generic implements TabInterface
         Registry $registry,
         FormFactory $formFactory,
         Config $wysiwygConfig,
+        Store  $systemStore,
         array $data = []
     ) {
+         $this->_systemStore = $systemStore;
         $this->_wysiwygConfig = $wysiwygConfig;
         parent::__construct($context, $registry, $formFactory, $data);
     }
@@ -54,7 +54,7 @@ class Info extends Generic implements TabInterface
         /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
         $form->setHtmlIdPrefix('banner_');
-        $form->setFieldNameSuffix('banner');
+        // $form->setFieldNameSuffix('banner');
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
@@ -68,6 +68,7 @@ class Info extends Generic implements TabInterface
                 ['name' => 'banner_id']
             );
         }
+
         $fieldset->addField(
             'title',
             'text',
@@ -83,8 +84,7 @@ class Info extends Generic implements TabInterface
             'text',
             [
                 'name'        => 'sub_title',
-                'label'    => __('Sub Title'),
-                'required'     => true
+                'label'    => __('Sub Title')
             ]
         );
 
@@ -95,8 +95,29 @@ class Info extends Generic implements TabInterface
             [
                 'name'        => 'description',
                 'label'    => __('Description'),
-                'required'     => true,
                 'config'    => $wysiwygConfig
+            ]
+        );
+
+        $fieldset->addField(
+            'image',
+            'image',
+            [
+                'name' => 'image',
+                'label' => __('Banner Image'),
+                'title' => __('Banner Image'),
+                'required' => true
+            ]
+        );
+        $fieldset->addField(
+            'mobile_image',
+            'image',
+            [
+                'name' => 'mobile_image',
+                'label' => __('Banner Image for Mobile'),
+                'title' => __('Banner Image for Mobile'),
+                'note'=> 'Please upload `1242 X 540` resolution image.',
+                'required' => true
             ]
         );
 
@@ -105,7 +126,28 @@ class Info extends Generic implements TabInterface
             'text',
             [
                 'name'        => 'url',
-                'label'    => __('Url'),
+                'label'    => __('Url')
+            ]
+        );
+
+        $fieldset->addField(
+            'store_ids',
+            'multiselect',
+            [
+                'name'     => 'store_ids[]',
+                'label'    => __('Store Views'),
+                'title'    => __('Store Views'),
+                'required' => true,
+                'values'   => $this->_systemStore->getStoreValuesForForm(false, true),
+            ]
+        );
+
+        $fieldset->addField(
+            'sort_order',
+            'text',
+            [
+                'name'        => 'sort_order',
+                'label'    => __('Sort Order'),
                 'required'     => true
             ]
         );

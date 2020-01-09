@@ -95,10 +95,10 @@ class NewAction extends \Magento\Backend\App\Action
         $resultPage = $this->_initAction();
         $resultPage->addBreadcrumb(__('Drc'), __('Drc'));
         $resultPage->addBreadcrumb(
-            $id ? __('Edit Item') : __('New Item'),
-            $id ? __('Edit Item') : __('New Item')
+            $id ? __('Edit Banner1') : __('New Banner1'),
+            $id ? __('Edit Banner2') : __('New Banner2')
         );
-        $resultPage->getConfig()->getTitle()->prepend($id ? __('Edit Item') : __('New Item'));
+        $resultPage->getConfig()->getTitle()->prepend($id ? __('Edit Banner3') : __('New Banner3'));
         //$resultPage->getConfig()->getTitle()->prepend($model->getId() ? $model->getTitle() : __('New Item'));
 
         return $resultPage;

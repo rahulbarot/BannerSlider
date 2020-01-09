@@ -24,7 +24,10 @@ class Save extends \Magento\Backend\App\Action
     public function execute()
     {
         $data = $this->getRequest()->getPostValue();
-        
+
+        // echo "<pre>";
+        // print_r($data);
+        // exit;
         
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
@@ -49,10 +52,10 @@ class Save extends \Magento\Backend\App\Action
 				/** @var \Magento\Framework\Filesystem\Directory\Read $mediaDirectory */
 				$mediaDirectory = $this->_objectManager->get('Magento\Framework\Filesystem')
 					->getDirectoryRead(DirectoryList::MEDIA);
-				$result = $uploader->save($mediaDirectory->getAbsolutePath('emizen_banner'));
+				$result = $uploader->save($mediaDirectory->getAbsolutePath('awesome_banner'));
 					if($result['error']==0)
 					{
-						$data['image'] = 'emizen_banner/' . $result['file'];
+						$data['image'] = 'awesome_banner/' . $result['file'];
 					} else {
 						if(isset($data['image']['delete']) && $data['image']['delete'] == '1') {
 							$data['image'] = '';
@@ -85,10 +88,10 @@ class Save extends \Magento\Backend\App\Action
                 /** @var \Magento\Framework\Filesystem\Directory\Read $mediaDirectory */
                 $mediaDirectory = $this->_objectManager->get('Magento\Framework\Filesystem')
                     ->getDirectoryRead(DirectoryList::MEDIA);
-                $result = $uploaderMob->save($mediaDirectory->getAbsolutePath('mobile_banner'));
+                $result = $uploaderMob->save($mediaDirectory->getAbsolutePath('awesome_mobile_banner'));
                     if($result['error']==0)
                     {
-                        $data['mobile_image'] = 'mobile_banner/' . $result['file'];
+                        $data['mobile_image'] = 'awesome_mobile_banner/' . $result['file'];
                     } else {
                         if(isset($data['mobile_image']['delete']) && $data['mobile_image']['delete'] == '1') {
                             $data['mobile_image'] = '';
@@ -112,7 +115,7 @@ class Save extends \Magento\Backend\App\Action
 
             try {
                 $model->save();
-                $this->messageManager->addSuccess(__('The Bannerslider has been saved.'));
+                $this->messageManager->addSuccess(__('The Banner has been saved.'));
                 $this->_objectManager->get('Magento\Backend\Model\Session')->setFormData(false);
                 if ($this->getRequest()->getParam('back')) {
                     return $resultRedirect->setPath('*/*/edit', ['banner_id' => $model->getId(), '_current' => true]);
