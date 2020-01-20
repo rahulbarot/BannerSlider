@@ -24,7 +24,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     protected function _construct()
     {
         parent::_construct();
-        $this->setId('postGrid');
+        $this->setId('bannerGrid');
         $this->setDefaultSort('banner_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
@@ -38,7 +38,6 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     protected function _prepareCollection()
     {
         $collection = $this->_bannerSlider->create()->getCollection();
-        // echo "<pre>";print_r($bannerCollection->getData());exit;
         $this->setCollection($collection);
         parent::_prepareCollection();
         return $this;
@@ -50,59 +49,68 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
      */
     protected function _prepareColumns()
     {
-		        $this->addColumn(
-		            'banner_id',
-		            [
-		                'header' => __('ID'),
-		                'type' => 'number',
-		                'index' => 'banner_id',
-		                'header_css_class' => 'col-id',
-		                'column_css_class' => 'col-id'
-		            ]
-		        );
+        $this->addColumn(
+            'banner_id',
+            [
+                'header' => __('ID'),
+                'type' => 'number',
+                'index' => 'banner_id',
+                'header_css_class' => 'col-id',
+                'column_css_class' => 'col-id'
+            ]
+        );
 
-				$this->addColumn(
-					'title',
-					[
-						'header' => __('Banner Title'),
-						'index' => 'title',
-					]
-				);
-				
-				$this->addColumn(
-					'sub_title',
-					[
-						'header' => __('Banner Sub Title'),
-						'index' => 'sub_title',
-					]
-				);
-				
-				$this->addColumn(
-					'url',
-					[
-						'header' => __('Banner Url'),
-						'index' => 'url',
-					]
-				);
-				
-				$this->addColumn(
-					'sort_order',
-					[
-						'header' => __('Sort Order'),
-						'index' => 'sort_order',
-					]
-				);
+        $this->addColumn(
+            'status',
+            [
+                'header' => __('Status'),
+                'index' => 'status',
+                'renderer' => 'Awesome\BannerSlider\Block\Adminhtml\Bannerslider\Renderer\Status'
+            ]
+        );
 
-				$this->addColumn(
-					'created_at',
-					[
-						'header' => __('Created at'),
-						'index' => 'created_at',
-					]
-				);
+		$this->addColumn(
+			'title',
+			[
+				'header' => __('Banner Title'),
+				'index' => 'title',
+			]
+		);
 		
-		   $this->addExportType($this->getUrl('bannerslider/*/exportCsv', ['_current' => true]),__('CSV'));
-		   $this->addExportType($this->getUrl('bannerslider/*/exportExcel', ['_current' => true]),__('Excel XML'));
+		$this->addColumn(
+			'sub_title',
+			[
+				'header' => __('Banner Sub Title'),
+				'index' => 'sub_title',
+			]
+		);
+		
+		$this->addColumn(
+			'url',
+			[
+				'header' => __('Banner Url'),
+				'index' => 'url',
+			]
+		);
+		
+		$this->addColumn(
+			'sort_order',
+			[
+				'header' => __('Sort Order'),
+				'index' => 'sort_order',
+			]
+		);
+
+		$this->addColumn(
+			'created_at',
+			[
+				'header' => __('Created at'),
+				'index' => 'created_at',
+			]
+		);
+		
+        $this->addExportType($this->getUrl('bannerslider/*/exportCsv', ['_current' => true]),__('CSV'));
+        $this->addExportType($this->getUrl('bannerslider/*/exportExcel', ['_current' => true]),__('Excel XML'));
 
         $block = $this->getLayout()->getBlock('grid.bottom.links');
         if ($block) {

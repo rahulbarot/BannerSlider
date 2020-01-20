@@ -8,6 +8,7 @@ use Magento\Backend\Block\Template\Context;
 use Magento\Framework\Registry;
 use Magento\Framework\Data\FormFactory;
 use Magento\Cms\Model\Wysiwyg\Config;
+use Magento\Store\Model\System\Store;
 
 class Info extends Generic implements TabInterface
 {
@@ -15,11 +16,8 @@ class Info extends Generic implements TabInterface
      * @var \Magento\Cms\Model\Wysiwyg\Config
      */
     protected $_wysiwygConfig;
-
-    /**
-     * @var \Tutorial\SimpleNews\Model\Config\Status
-     */
-    protected $_newsStatus;
+    
+    protected $_systemStore;
 
    /**
      * @param Context $context
@@ -34,8 +32,10 @@ class Info extends Generic implements TabInterface
         Registry $registry,
         FormFactory $formFactory,
         Config $wysiwygConfig,
+        Store  $systemStore,
         array $data = []
     ) {
+         $this->_systemStore = $systemStore;
         $this->_wysiwygConfig = $wysiwygConfig;
         parent::__construct($context, $registry, $formFactory, $data);
     }
@@ -49,11 +49,12 @@ class Info extends Generic implements TabInterface
     {
        /** @var $model \Tutorial\SimpleNews\Model\News */
         $model = $this->_coreRegistry->registry('bannerslider');
-
+        // echo "<pre>";
+        // print_r($model->getData());exit;
         /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
-        $form->setHtmlIdPrefix('news_');
-        $form->setFieldNameSuffix('news');
+        $form->setHtmlIdPrefix('banner_');
+        // $form->setFieldNameSuffix('banner');
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
@@ -62,11 +63,34 @@ class Info extends Generic implements TabInterface
 
         if ($model->getId()) {
             $fieldset->addField(
-                'id',
+                'banner_id',
                 'hidden',
-                ['name' => 'id']
+                ['name' => 'banner_id']
             );
         }
+
+        $fieldset->addField(
+            'status',
+            'checkbox',
+            [
+                'label' => __('Status'), 
+                'required' => false, 
+                'name' => 'status',
+                'onchange' => 'this.value = (Number(this.checked));',
+                'class' => 'admin__actions-switch-checkbox', 
+                'after_element_js' => '
+                    <label class="admin__actions-switch-label" for="status">
+                        <span class="admin__actions-switch-text" data-text-on="'.__('Enabled').'" data-text-off="'.__('Disabled').'"></span>
+                    </label>
+                '
+            ]
+        );
+
+        if($model->getStatus()){
+            $isEnabled = $model->getStatus();
+            $form->getElement('status')->setIsChecked($isEnabled);
+        }
+
         $fieldset->addField(
             'title',
             'text',
@@ -77,6 +101,15 @@ class Info extends Generic implements TabInterface
             ]
         );
 
+        $fieldset->addField(
+            'sub_title',
+            'text',
+            [
+                'name'        => 'sub_title',
+                'label'    => __('Sub Title')
+            ]
+        );
+
         $wysiwygConfig = $this->_wysiwygConfig->getConfig();
         $fieldset->addField(
             'description',
@@ -84,8 +117,60 @@ class Info extends Generic implements TabInterface
             [
                 'name'        => 'description',
                 'label'    => __('Description'),
-                'required'     => true,
                 'config'    => $wysiwygConfig
+            ]
+        );
+
+        $fieldset->addField(
+            'image',
+            'image',
+            [
+                'name' => 'image',
+                'label' => __('Banner Image'),
+                'title' => __('Banner Image'),
+                'required' => true
+            ]
+        );
+        $fieldset->addField(
+            'mobile_image',
+            'image',
+            [
+                'name' => 'mobile_image',
+                'label' => __('Banner Image for Mobile'),
+                'title' => __('Banner Image for Mobile'),
+                'note'=> 'Please upload `1242 X 540` resolution image.',
+                'required' => true
+            ]
+        );
+
+        $fieldset->addField(
+            'url',
+            'text',
+            [
+                'name'        => 'url',
+                'label'    => __('Url')
+            ]
+        );
+
+        $fieldset->addField(
+            'store_ids',
+            'multiselect',
+            [
+                'name'     => 'store_ids[]',
+                'label'    => __('Store Views'),
+                'title'    => __('Store Views'),
+                'required' => true,
+                'values'   => $this->_systemStore->getStoreValuesForForm(false, true),
+            ]
+        );
+
+        $fieldset->addField(
+            'sort_order',
+            'text',
+            [
+                'name'        => 'sort_order',
+                'label'    => __('Sort Order'),
+                'required'     => true
             ]
         );
 

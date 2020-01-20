@@ -1,0 +1,7 @@
+.banner{width: 100%;height: 480px;background-size: cover;position: relative;}
+.banner .banner-content{position: absolute;left: 25%;top: 50%;transform: translate(-50%,-50%);}
+.banner .banner-content h2,
+.banner .right-content h2{color: #fff;margin-bottom: 40px;font-weight: 600;font-size: 32px;text-shadow: 0 0 3px #d60000, 0 0 5px #175cda;}
+.banner .banner-content .banner_btn,
+.banner .right-content .banner_btn{border: 2px solid #fff;background-color: #800000a6; padding: 10px 25px; color: #fff; text-decoration: none; font-weight: 600;}
+.banner .right-content{opacity: 0.6;position: absolute;right: 0;top: 50%;transform: translate(-15%,-50%);}

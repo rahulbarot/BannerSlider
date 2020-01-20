@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="awesome" translate="label" sortOrder="10">
+            <label>Awesome BannerSlider</label>
+        </tab>
+        <section id="bannerslider" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>General</label>
+            <tab>awesome</tab>
+            <resource>Awesome_BannerSlider::bannerslider_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Module Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <!-- <field id="custom_css" translate="label" type="textarea" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Custom Css</label>
+                    <comment>Add custom css to customize banner slider.</comment>
+                </field> -->
+            </group>
+            <group id="slick_config" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Slick Configuration</label>
+                <field id="arrows" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Arrows</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="dots" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Dots</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="infinite" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Infinite Scroll</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="speed" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Slider speed</label>
+                    <source_model>Awesome\BannerSlider\Model\Source\SlidesrSpeed</source_model>
+                </field>
+                <field id="slidesToShow" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Slides to Show</label>
+                    <source_model>Awesome\BannerSlider\Model\Source\SlidesToShow</source_model>
+                </field>
+                <field id="slidesToScroll" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Slides to scroll</label>
+                    <source_model>Awesome\BannerSlider\Model\Source\SlidesToScroll</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
