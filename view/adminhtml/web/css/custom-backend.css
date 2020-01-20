@@ -1,0 +1,4 @@
+.field-status .admin__field-control.control{position: relative;}
+.field-status .admin__actions-switch-label{position: absolute;left: 0px;top: 5px;}
+.field-status .admin__field-control .admin__actions-switch-checkbox{margin: 0px !important;top: 5px;left: 2px;z-index: 9;width: 35px !important;border: none;background: transparent;}
+.field-status .admin__field-control .admin__actions-switch-checkbox:after{content: none !important;}

@@ -1,9 +1,14 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+    	<css src="Awesome_BannerSlider::css/slick.css" />
+    	<css src="Awesome_BannerSlider::css/slick-theme.css" />
+    	<css src="Awesome_BannerSlider::css/custom.css" />
+    </head>
     <body>
         <referenceContainer name="content">
         	<referenceBlock name="page.main.title" remove="true"/>
-            <block class="Magento\Framework\View\Element\Template" template="Awesome_BannerSlider::banner-slider.phtml"/>
+            <block class="Awesome\BannerSlider\Block\Banners" ifconfig="bannerslider/general/enable" template="Awesome_BannerSlider::banner-slider.phtml"/>
         </referenceContainer>
     </body>
 </page>

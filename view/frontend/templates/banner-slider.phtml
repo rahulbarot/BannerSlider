@@ -1,1 +1,46 @@
-<h1>2Hello Awesome</h1>
+<?php $bannerData = $block->getBanners(); ?>
+<?php $mediaPath = $this->getUrl('pub/media'); ?>
+<?php $storeId = $block->getStoreData()->getId(); ?>
+<?php $helper = $this->helper('Awesome\BannerSlider\Helper\Data'); ?>
+<?php //$sliderConfig = [
+// 		'arrows' => ($helper->getConfig('bannerslider/slick_config/arrows') == 1 ? "true" : "false"),
+// 		'dots' => ($helper->getConfig('bannerslider/slick_config/dots') == 1 ? "true" : "false"),
+// 		'infinite' => ($helper->getConfig('bannerslider/slick_config/infinite') == 1 ? "true" : "false"),
+// 		'speed' => $helper->getConfig('bannerslider/slick_config/speed'),
+// 		'slidesToShow' => $helper->getConfig('bannerslider/slick_config/slidesToShow'),
+// 		'slidesToScroll' => $helper->getConfig('bannerslider/slick_config/slidesToScroll')
+// 	];
+?>
+<?php $sliderConfig = [
+		'arrows' => true,
+		'dots' => true,
+		'infinite' => true,
+		'speed' => 200,
+		'slidesToShow' => 1,
+		'slidesToScroll' => 1
+	];
+?>
+<?php if(!empty($bannerData)): ?>
+	<div class="awesome-banners">
+		<?php foreach($bannerData as $banner): ?>
+			<?php if(in_array($storeId,explode(',' , $banner->getStoreIds()))): ?>
+		    	<div class="banner" style="background-image: url(<?php echo $mediaPath.$banner->getData('image'); ?>);">
+		    		<?php if($banner->getData('description')): ?>
+		    			<?php echo $block->getFilteredContent($banner->getData('description')); ?>
+		    		<?php endif; ?>
+		    	</div>
+			<?php endif; ?>
+		<?php endforeach;?>
+  	</div>
+<?php endif; ?>
+<?php if(count($bannerData->getData()) > 1): ?>
+	<script type="text/x-magento-init"> 
+	{ 
+	   "*": { 
+	       "Awesome_BannerSlider/js/bannerslider/slider": {
+	       		"sliderConfig" : <?php echo json_encode($sliderConfig); ?>
+	   		}
+	   } 
+	} 
+	</script>
+<?php endif; ?>

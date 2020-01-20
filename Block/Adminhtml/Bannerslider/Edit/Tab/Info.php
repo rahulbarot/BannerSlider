@@ -70,6 +70,28 @@ class Info extends Generic implements TabInterface
         }
 
         $fieldset->addField(
+            'status',
+            'checkbox',
+            [
+                'label' => __('Status'), 
+                'required' => false, 
+                'name' => 'status',
+                'onchange' => 'this.value = (Number(this.checked));',
+                'class' => 'admin__actions-switch-checkbox', 
+                'after_element_js' => '
+                    <label class="admin__actions-switch-label" for="status">
+                        <span class="admin__actions-switch-text" data-text-on="'.__('Enabled').'" data-text-off="'.__('Disabled').'"></span>
+                    </label>
+                '
+            ]
+        );
+
+        if($model->getStatus()){
+            $isEnabled = $model->getStatus();
+            $form->getElement('status')->setIsChecked($isEnabled);
+        }
+
+        $fieldset->addField(
             'title',
             'text',
             [

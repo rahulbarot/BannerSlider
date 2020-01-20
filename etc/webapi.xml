@@ -6,4 +6,10 @@
             <resource ref="admin"/>
         </resources>
     </route>
+    <route url="/V1/bannerdelete/:banner_id" method="POST">
+        <service class="Awesome\BannerSlider\Api\BannerManagement" method="deleteBanner"/>
+        <resources>
+            <resource ref="admin"/>
+        </resources>
+    </route>
 </routes>

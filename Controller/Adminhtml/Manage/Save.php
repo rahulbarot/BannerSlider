@@ -24,7 +24,11 @@ class Save extends \Magento\Backend\App\Action
     public function execute()
     {
         $data = $this->getRequest()->getPostValue();
-
+        if(array_key_exists('status' , $data)){
+            $data['status'] = $data['status'] ? 1 : 0;
+        }else{
+            $data['status'] = 0;
+        }
         // echo "<pre>";
         // print_r($data);
         // exit;

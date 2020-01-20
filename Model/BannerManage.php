@@ -17,4 +17,11 @@ class BannerManage implements BannerManagement
         $bannerCollection = $this->_bannersliderFactory->create()->getCollection();
         return $bannerCollection->getData();
     }
+
+    public function deleteBanner($banner_id)
+    {
+        $banner = $this->_bannersliderFactory->create()->load($bannerId);
+        // print_r($banner->getData());exit;
+        return $banner->getData();
+    }
 }
